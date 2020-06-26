@@ -300,4 +300,33 @@ pipeline {
             }
         }
     }
+    post {
+	success {
+		emailext (
+		  subject: "Arktos E2E CICD Test Succeed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+		  body: """
+Jenkins job ${env.JOB_NAME} [${env.BUILD_NUMBER}] succeed!
+
+Job Url: ${env.BUILD_URL}
+
+Console Url: ${env.BUILD_URL}console""",
+		  to: 'hchang@futurewei.com'
+		)
+	}
+
+	failure {
+		emailext (
+		  subject: "Arktos E2E CICD Test Failed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+		  body: """
+Jenkins job ${env.JOB_NAME} [${env.BUILD_NUMBER}] failed!
+To investigate, click console url and check error message there.
+
+Job Url: ${env.BUILD_URL}
+
+Console Url: ${env.BUILD_URL}console""",
+		  recipientProviders: [brokenBuildSuspects()],
+		  to: 'hchang@futurewei.com'
+		)
+	}
+  }
 }
