@@ -229,7 +229,7 @@ pipeline {
 		echo hochan2
                 sudo $GOPATH/master-user-data
 		echo hochan3
-                sudo /tmp/bootstrap-script
+                sudo /tmp/bootstrap-script > /tmp/bootstrap-script.log
                 
 		echo hochan4
                 sudo cp /home/${PARAMS_DEFAULT_USER}/.kube/config $GOPATH/config
