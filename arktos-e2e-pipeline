@@ -224,11 +224,16 @@ pipeline {
                 chmod 755 /tmp/bootstrap-script
                 cp $KUBE_ROOT/_output/release-tars/kubernetes-server-linux-amd64.tar.gz /tmp/kubernetes-server-linux-amd64.tar.gz
                 
+		echo hochan1
                 chmod 755 $GOPATH/master-user-data
+		echo hochan2
                 sudo $GOPATH/master-user-data
+		echo hochan3
                 sudo /tmp/bootstrap-script
                 
+		echo hochan4
                 sudo cp /home/${PARAMS_DEFAULT_USER}/.kube/config $GOPATH/config
+		echo hochan5
 		sudo chown jenkins $GOPATH/config                
                 '''		
                 stash includes: 'config', name: 'config'
